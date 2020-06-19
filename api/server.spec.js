@@ -11,7 +11,7 @@ describe('server.js', () => {
   })
 
   describe("GET /", () => {
-    it('should return 200 OK', () => {
+    it('should return 404 unauthorized', () => {
       return supertest(server)
         .get('/')
         .then(res => {
@@ -31,12 +31,12 @@ describe('server.js', () => {
 
 
   describe("POST /register", () => {
-    it("should register", () => {
-       const name = "bilbo";
+    it("should return 404 ", async () => {
+      const name = { name: "bilbo", password: "baggins" };
 
-        return supertest(server)
+        await supertest(server)
             .post("/register")
-            .send({ name })
+            .send(name)
             .then(res => {
               expect(res.status).toBe(404)
             });
@@ -54,7 +54,7 @@ describe('server.js', () => {
   
   describe("POST /login", () => {
     
-    it("should register", () => {
+    it("should return 404", () => {
       const name = "frodo";
 
       return supertest(server)
